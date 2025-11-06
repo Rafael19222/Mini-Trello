@@ -1,0 +1,196 @@
+
+.gold-gradient {
+  background: linear-gradient(135deg, #d4af37 0%, #f4e5b0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #1a1a1a;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #00bcd4;
+  margin-bottom: 20px;
+}
+
+/* ====== formulaire ====== */
+.task-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.task-form input, .task-form button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.task-form input {
+  flex: 1;
+  background: #2a2a2a;
+  color: #fff;
+}
+
+.task-form button {
+  background: #00bcd4;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.task-form button:hover {
+  background: #0097a7;
+}
+
+/* ====== FILTRE ====== */
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filters input, .filters select {
+  flex: 1;
+  padding: 10px;
+  background: #2a2a2a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+/* ====== compteur ====== */
+.stats {
+  display: flex;
+  justify-content: space-around;
+  background: #2a2a2a;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* ====== liste des tache ====== */
+.task-list {
+  display: grid;
+  gap: 15px;
+}
+
+.task-card {
+  background: #2f2f2f;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.task-card h2 {
+  margin: 0;
+  color: #00bcd4;
+}
+
+.task-card p {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.task-card select {
+  margin-top: 5px;
+  padding: 5px;
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+/* ====== les boutons ====== */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.edit-btn {
+  background: #ffb300;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #000;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: #f44336;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #2a2a2a;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+  background: #00bcd4;
+  color: #fff;
+}
+
+.modal-buttons button:last-child {
+  background: #555;
+  color: #fff;
+}
+

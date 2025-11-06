@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr" class="bg-black text-white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Trello - Alpine.js</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen flex flex-col items-center p-6 bg-gradient-to-br from-black via-gray-900 to-black">
+
+  <h1 class="text-4xl font-bold mb-6 gold-gradient"> Trello Projet Management</h1>
+
+  <div x-data="taskApp()" class="w-full max-w-4xl space-y-6">
+    <!-- Formulaire d'ajout -->
+    <form @submit.prevent="addTask()" class="flex flex-col md:flex-row gap-3 bg-gray-900 p-4 rounded-xl shadow-2xl border border-yellow-600/30">
+      <input type="text" x-model="newTask.title" placeholder="Titre de la tâche"
+        class="flex-1 p-2 rounded-lg bg-black border border-yellow-600/40 text-white focus:ring focus:ring-yellow-500" required>
+      <input type="text" x-model="newTask.description" placeholder="Description"
+        class="flex-1 p-2 rounded-lg bg-black border border-yellow-600/40 text-white focus:ring focus:ring-yellow-500">
+      <button type="submit"
+        class="bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 transition text-black px-4 py-2 rounded-lg font-semibold shadow-lg">Ajouter</button>
+    </form>
+
+    <!-- Recherche & Filtre -->
+    <div class="flex flex-col md:flex-row justify-between gap-3">
+      <input type="text" x-model="search" placeholder="Rechercher une tâche..."
+        class="flex-1 p-2 rounded-lg bg-black border border-yellow-600/40 focus:ring focus:ring-yellow-500">
+      <select x-model="filter" class="p-2 rounded-lg bg-black border border-yellow-600/40 text-white">
+        <option value="">Tous les statuts</option>
+        <option value="À faire">À faire</option>
+        <option value="En cours">En cours</option>
+        <option value="Terminé">Terminé</option>
+      </select>
+    </div>
+
+    <!-- Compteur -->
+    <div class="flex justify-around bg-gray-900 p-3 rounded-lg text-sm text-gray-300 border border-yellow-600/30">
+      <p>À faire: <span class="text-yellow-400 font-semibold" x-text="countByStatus('À faire')"></span></p>
+      <p>En cours: <span class="text-yellow-300 font-semibold" x-text="countByStatus('En cours')"></span></p>
+      <p>Terminé: <span class="text-yellow-500 font-semibold" x-text="countByStatus('Terminé')"></span></p>
+    </div>
+
+    <!-- Liste des tâches -->
+    <div class="grid md:grid-cols-3 gap-4">
+      <template x-for="task in filteredTasks()" :key="task.id">
+        <div class="bg-gray-900 p-4 rounded-xl shadow-2xl space-y-2 border border-yellow-600/40 hover:border-yellow-500/60 transition">
+          <h2 class="text-lg font-bold text-yellow-400" x-text="task.title"></h2>
+          <p class="text-sm text-gray-300" x-text="task.description"></p>
+
+          <!-- Statut -->
+          <select x-model="task.status" @change="saveTasks()"
+            class="bg-black border border-yellow-600/40 rounded p-1 text-sm text-white">
+            <option>À faire</option>
+            <option>En cours</option>
+            <option>Terminé</option>
+          </select>
+
+          <!-- Boutons -->
+          <div class="flex gap-2 mt-2">
+            <button @click="editTask(task)"
+              class="flex-1 bg-yellow-600 hover:bg-yellow-500 px-2 py-1 rounded text-sm text-black font-medium">Modifier</button>
+            <button @click="deleteTask(task.id)"
+              class="flex-1 bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-sm border border-yellow-600/30">Supprimer</button>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- Modal édition -->
+    <div x-show="editing" x-cloak class="fixed inset-0 bg-black/80 flex items-center justify-center">
+      <div class="bg-gray-900 p-6 rounded-xl w-96 space-y-3 shadow-2xl border border-yellow-600/50">
+        <h2 class="text-xl font-bold text-yellow-400">✏️ Modifier la tâche</h2>
+        <input type="text" x-model="editData.title" class="w-full p-2 rounded bg-black border border-yellow-600/40 text-white">
+        <textarea x-model="editData.description" class="w-full p-2 rounded bg-black border border-yellow-600/40 text-white"></textarea>
+        <select x-model="editData.status" class="w-full p-2 rounded bg-black border border-yellow-600/40 text-white">
+          <option>À faire</option>
+          <option>En cours</option>
+          <option>Terminé</option>
+        </select>
+        <div class="flex gap-3 justify-end">
+          <button @click="saveEdit()" class="bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 px-4 py-2 rounded text-black font-semibold">Sauvegarder</button>
+          <button @click="cancelEdit()" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded border border-yellow-600/30">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
